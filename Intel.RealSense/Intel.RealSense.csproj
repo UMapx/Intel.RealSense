@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Intel.RealSense</PackageId>
+    <Authors>Intel®</Authors>
+    <Product>Intel® RealSense™ SDK</Product>
+    <AssemblyVersion>2.45.0.0</AssemblyVersion>
+    <FileVersion>2.45.0.0</FileVersion>
+    <Version>2.45.0</Version>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <Description>Intel® RealSense™ cross-platform C# wrapper</Description>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Platforms>AnyCPU</Platforms>
+    <AssemblyName>Intel.RealSense</AssemblyName>
+    <RootNamespace>Intel.RealSense</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="realsense2.dll" />
+    <None Remove="realsense2.lib" />
+    <None Include="LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="realsense2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="realsense2.lib">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
