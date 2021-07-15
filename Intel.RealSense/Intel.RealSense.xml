@@ -1,0 +1,2224 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Intel.RealSense</name>
+    </assembly>
+    <members>
+        <member name="T:Intel.RealSense.Base.DeleterHandle">
+            <summary>
+            Native handle with deleter delegate to release unmanaged resources
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Base.DeleterHandle.IsInvalid">
+            <summary>
+            Gets a value indicating whether this handle is invalid
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Base.Object">
+            <summary>
+            Base class for disposable objects with native resources
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Base.Object.#ctor(System.IntPtr,Intel.RealSense.Base.Deleter)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.Base.Object"/> class.
+            </summary>
+            <param name="ptr">native pointer</param>
+            <param name="deleter">optional deleter</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="ptr"/> is null</exception>
+        </member>
+        <member name="P:Intel.RealSense.Base.Object.Handle">
+            <summary>
+            Gets the native handle
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">Thrown when <see cref="P:Intel.RealSense.Base.DeleterHandle.IsInvalid"/></exception>
+        </member>
+        <member name="M:Intel.RealSense.Base.Object.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Intel.RealSense.Base.PooledObject">
+            <summary>
+            Base class for objects in an <cref see="ObjectPool">ObjectPool</cref>
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Base.RefCountedPooledObject">
+            <summary>
+            Base class for objects in an <cref see="ObjectPool">ObjectPool</cref>
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Context">
+            <summary>
+            default librealsense context class
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Context.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.Context"/> class.
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Context.Handle">
+            <summary>
+            Gets the safe handle
+            </summary>
+            <exception cref="T:System.ObjectDisposedException">Thrown when <see cref="P:System.Runtime.InteropServices.SafeHandle.IsInvalid"/></exception>
+        </member>
+        <member name="F:Intel.RealSense.Context.ApiVersion">
+            <summary>
+            the version API encoded into integer value "1.9.3" -> 10903
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Context.Version">
+            <summary>
+            Gets the API version
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Context.OnDevicesChangedDelegate">
+            <summary>
+            Delegate to register as per-notifications callback
+            </summary>
+            <param name="removed">list of removed devices</param>
+            <param name="added">list of added devices</param>
+        </member>
+        <member name="E:Intel.RealSense.Context.OnDevicesChanged">
+            <summary>
+            these events will be raised by the context whenever new RealSense device is connected or existing device gets disconnected
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Context.QueryDevices(System.Boolean)">
+            <summary>
+            Create a static snapshot of all connected devices at the time of the call
+            </summary>
+            <param name="include_platform_camera">Controls what kind of devices will be returned</param>
+            <returns>the list of devices</returns>
+            <remarks>devices in the collection should be disposed</remarks>
+        </member>
+        <member name="P:Intel.RealSense.Context.Devices">
+            <summary>
+            Gets a static snapshot of all connected devices at the time of the call
+            </summary>
+            <value>the list of devices</value>
+        </member>
+        <member name="M:Intel.RealSense.Context.AddDevice(System.String)">
+            <summary>Create a new device and add it to the context</summary>
+            <param name="file">The file from which the device should be created</param>
+            <returns>a device that plays data from the file</returns>
+        </member>
+        <member name="M:Intel.RealSense.Context.RemoveDevice(System.String)">
+            <summary>Removes a playback device from the context, if exists</summary>
+            <param name="file">The file name that was used to add the device</param>
+        </member>
+        <member name="M:Intel.RealSense.AdvancedDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create an <see cref="T:Intel.RealSense.AdvancedDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.AdvancedMode"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.AdvancedDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.AdvancedMode"/></exception>
+        </member>
+        <member name="P:Intel.RealSense.AdvancedDevice.AdvancedModeEnabled">
+            <summary>
+            Gets or sets a value indicating whether Advanced-Mode is enabled
+            </summary>
+            <value><see langword="true"/> when Advanced-Mode is enabled</value>
+        </member>
+        <member name="P:Intel.RealSense.AdvancedDevice.JsonConfiguration">
+            <summary>
+            Gets or sets JSON and applies advanced-mode controls
+            </summary>
+            <value>Serialize JSON content</value>
+        </member>
+        <member name="M:Intel.RealSense.DebugDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create an <see cref="T:Intel.RealSense.DebugDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.Debug"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.DebugDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.FirmwareLogger"/></exception>
+        </member>
+        <member name="T:Intel.RealSense.Device">
+            <summary>
+            The device object represents a physical camera and provides the means to manipulate it.
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Device.Info">
+            <summary>
+            Gets camera specific information, like versions of various internal components
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Device.QuerySensors">
+            <summary>
+            create a static snapshot of all connected devices at the time of the call
+            </summary>
+            <returns>The list of sensors</returns>
+        </member>
+        <member name="P:Intel.RealSense.Device.Sensors">
+            <summary>
+            Gets a static snapshot of all connected devices at the time of the call
+            </summary>
+            <value>The list of sensors</value>
+        </member>
+        <member name="M:Intel.RealSense.Device.HardwareReset">
+            <summary>
+            Send hardware reset request to the device. The actual reset is asynchronous.
+            Note: Invalidates all handles to this device.
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Device.Is(Intel.RealSense.Extension)">
+            <summary>Test if the given device can be extended to the requested extension.</summary>
+            <param name="extension">The extension to which the device should be tested if it is extendable</param>
+            <returns>Non-zero value iff the device can be extended to the given extension</returns>
+        </member>
+        <member name="M:Intel.RealSense.DeviceList.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.DeviceList"/> class.
+            </summary>
+            <param name="ptr">Native <c>rs2_device_list*</c> pointer</param>
+        </member>
+        <member name="M:Intel.RealSense.DeviceList.GetEnumerator">
+            <summary>
+            Returns an iterable of devices in the list
+            </summary>
+            <returns>an iterable of devices in the list</returns>
+        </member>
+        <member name="M:Intel.RealSense.DeviceList.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.DeviceList.Count">
+            <summary>Gets the number of devices in a list.</summary>
+            <value>Device count</value>
+        </member>
+        <member name="P:Intel.RealSense.DeviceList.Item(System.Int32)">
+            <summary>Creates a device by index. The device object represents a physical camera and provides the means to manipulate it.</summary>
+            <param name="index">The zero based index of device to retrieve</param>
+            <returns>The requested device, should be released by rs2_delete_device</returns>
+        </member>
+        <member name="M:Intel.RealSense.DeviceList.Contains(Intel.RealSense.Device)">
+            <summary>Checks if a specific device is contained inside a device list.</summary>
+            <param name="device">RealSense device to check for</param>
+            <returns>True if the device is in the list and false otherwise</returns>
+        </member>
+        <member name="M:Intel.RealSense.FirmwareLogsDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create an <see cref="T:Intel.RealSense.FirmwareLogsDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.FirmwareLogger"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.FirmwareLogsDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.FirmwareLogger"/></exception>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create a <see cref="T:Intel.RealSense.PlaybackDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.Playback"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.PlaybackDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.Playback"/></exception>
+        </member>
+        <member name="P:Intel.RealSense.PlaybackDevice.FileName">
+            <summary>
+            Gets the path of the file used by the playback device
+            </summary>
+            <value>Path to the file used by the playback device</value>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.Pause">
+            <summary>
+            Pauses the playback
+            </summary>
+            <remarks>
+            Calling Pause() in "Paused" status does nothing
+            If Pause() is called while playback status is "Playing" or "Stopped", the playback will not play until Resume() is called
+            </remarks>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.Resume">
+            <summary>
+            Un-pauses the playback
+            </summary>
+            <remarks>
+            Calling Resume() while playback status is "Playing" or "Stopped" does nothing
+            </remarks>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.Stop">
+            <summary>
+            Stops the playback
+            </summary>
+            <remarks>
+            Calling Stop() will stop all streaming playback sensors and will reset the playback(returning to beginning of file)
+            </remarks>
+        </member>
+        <member name="P:Intel.RealSense.PlaybackDevice.Status">
+            <summary>
+            Gets the current state of the playback device
+            </summary>
+            <value>Current state of the playback</value>
+        </member>
+        <member name="P:Intel.RealSense.PlaybackDevice.Duration">
+            <summary>
+            Gets the total duration of the file in units of nanoseconds</summary>
+            <value>
+            Total duration of the file in units of nanoseconds
+            </value>
+        </member>
+        <member name="P:Intel.RealSense.PlaybackDevice.Position">
+            <summary>
+            Gets or sets the current position of the playback in the file in terms of time. Units are expressed in nanoseconds
+            </summary>
+            <value>
+            Current position of the playback in the file in terms of time. Units are expressed in nanoseconds
+            </value>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.Seek(System.Int64)">
+            <summary>
+            Set the playback to a specified time point of the played data
+            </summary>
+            <param name="time">The time point to which playback should seek, expressed in units of nanoseconds (zero value = start)</param>
+        </member>
+        <member name="P:Intel.RealSense.PlaybackDevice.Realtime">
+            <summary>
+            Gets or sets a value indicating whether the playback works in real time or non real time
+            </summary>
+            <value>Indicates if playback is in real time mode or non real time</value>
+            <remarks>
+            In real time mode, playback will play the same way the file was recorded.
+            In real time mode if the application takes too long to handle the callback, frames may be dropped.
+            In non real time mode, playback will wait for each callback to finish handling the data before
+            reading the next frame. In this mode no frames will be dropped, and the application controls the
+            frame rate of the playback (according to the callback handler duration).
+            </remarks>
+        </member>
+        <member name="M:Intel.RealSense.PlaybackDevice.SetSpeed(System.Single)">
+            <summary>
+            Set the playing speed
+            </summary>
+            <param name="speed">Indicates a multiplication of the speed to play (e.g: 1 = normal, 0.5 twice as slow)</param>
+        </member>
+        <member name="M:Intel.RealSense.RecordDevice.#ctor(Intel.RealSense.Device,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.RecordDevice"/> class.
+            </summary>
+            <param name="dev">The <see cref="T:Intel.RealSense.Device"/> to record</param>
+            <param name="file">The desired path to which the recorder should save the data</param>
+        </member>
+        <member name="M:Intel.RealSense.RecordDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+             Create a <see cref="T:Intel.RealSense.RecordDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.Record"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.RecordDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.Record"/></exception>
+        </member>
+        <member name="M:Intel.RealSense.RecordDevice.Pause">
+            <summary>
+            Pause the recording device without stopping the actual device from streaming.
+            Pausing will cause the device to stop writing new data to the file, in particular, frames and changes to extensions
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.RecordDevice.Resume">
+            <summary>
+            Unpause the recording device. Resume will cause the device to continue writing new data to the file, in particular, frames and changes to extensions
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.RecordDevice.FileName">
+            <summary>
+            Gets the name of the file to which the recorder is writing
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.UpdatableDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create an <see cref="T:Intel.RealSense.UpdatableDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.Updatable"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.AdvancedDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.Updatable"/></exception>
+        </member>
+        <member name="M:Intel.RealSense.UpdatableDevice.EnterUpdateState">
+            <summary>
+            Enter the device to update state, this will cause the updatable device to disconnect and reconnect as UpdateDevice
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.UpdateDevice.FromDevice(Intel.RealSense.Device)">
+            <summary>
+            Create an <see cref="T:Intel.RealSense.UpdateDevice"/> from existing <see cref="T:Intel.RealSense.Device"/>
+            </summary>
+            <param name="dev">a device that supports <see cref="F:Intel.RealSense.Extension.UpdateDevice"/></param>
+            <returns>a new <see cref="T:Intel.RealSense.UpdateDevice"/></returns>
+            <exception cref="T:System.ArgumentException">Thrown when <paramref name="dev"/> does not support <see cref="F:Intel.RealSense.Extension.UpdateDevice"/></exception>
+        </member>
+        <member name="M:Intel.RealSense.UpdateDevice.Update(System.Byte[])">
+            <summary>
+            Update an updatable device to the provided firmware, this call is executed on the caller's thread.
+            For progress notifications, register to OnUpdateProgress event.
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.DepthFrame.GetDistance(System.Int32,System.Int32)">
+            <summary>Given the 2D depth coordinate (x,y) provide the corresponding depth in metric units</summary>
+            <returns>depth in metric units</returns>
+        </member>
+        <member name="M:Intel.RealSense.DepthFrame.GetUnits">
+            <summary>Provide the scaling factor to use when converting from frame data units to meters</summary>
+            <returns>Depth, in meters, per 1 unit stored in the frame data</returns>
+        </member>
+        <member name="T:Intel.RealSense.Frame">
+            <summary>
+            Base class for multiple frame extensions
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Create(System.IntPtr)">
+            <summary>
+            Create a frame from a native pointer
+            </summary>
+            <param name="ptr">Native <c>rs2_frame*</c> pointer</param>
+            <returns>a new <see cref="T:Intel.RealSense.Frame"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Create``1(System.IntPtr)">
+            <summary>
+            Create a frame from a native pointer
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="ptr">Native <c>rs2_frame*</c> pointer</param>
+            <returns>a new <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Create``1(Intel.RealSense.Frame)">
+            <summary>Returns a strongly-typed clone</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="other"><see cref="T:Intel.RealSense.Frame"/> to clone</param>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Is(Intel.RealSense.Extension)">
+            <summary>Test if the given frame can be extended to the requested extension</summary>
+            <param name="extension">The extension to which the frame should be tested if it is extendable</param>
+            <returns><see langword="true"/> iff the frame can be extended to the given extension</returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.As``1">
+            <summary>Returns a strongly-typed clone</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Cast``1">
+            <summary>Returns a strongly-typed clone, <see langword="this"/> is disposed</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Clone">
+            <summary>
+            Add a reference to this frame and return a clone, does not copy data
+            </summary>
+            <returns>A clone of this frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.Keep">
+            <summary>communicate to the library you intend to keep the frame alive for a while
+            <para>
+            this will remove the frame from the regular count of the frame pool
+            </para>
+            </summary>
+            <remarks>
+            once this function is called, the SDK can no longer guarantee 0-allocations during frame cycling
+            </remarks>
+        </member>
+        <member name="P:Intel.RealSense.Frame.IsComposite">
+            <summary>
+            Gets a value indicating whether frame is a composite frame
+            <para>Shorthand for <c>Is(<see cref="F:Intel.RealSense.Extension.CompositeFrame"/>)</c></para>
+            </summary>
+            <seealso cref="M:Intel.RealSense.Frame.Is(Intel.RealSense.Extension)"/>
+            <value><see langword="true"/> if frame is a composite frame and false otherwise</value>
+        </member>
+        <member name="P:Intel.RealSense.Frame.DataSize">
+            <summary>Gets the size of the frame data</summary>
+            <value>The size of the frame data</value>
+        </member>
+        <member name="P:Intel.RealSense.Frame.Data">
+            <summary>Gets a pointer to the frame data</summary>
+            <value>pointer to the start of the frame data</value>
+        </member>
+        <member name="M:Intel.RealSense.Frame.GetProfile``1">
+            <summary>
+            Returns the stream profile that was used to start the stream of this frame
+            </summary>
+            <typeparam name="T">StreamProfile or subclass type</typeparam>
+            <returns>the stream profile that was used to start the stream of this frame</returns>
+        </member>
+        <member name="P:Intel.RealSense.Frame.Profile">
+            <summary>
+            Gets the stream profile that was used to start the stream of this frame
+            </summary>
+            <see cref="M:Intel.RealSense.Frame.GetProfile``1"/>
+        </member>
+        <member name="P:Intel.RealSense.Frame.Number">
+            <summary>Gets the frame number of the frame</summary>
+            <value>the frame nubmer of the frame</value>
+        </member>
+        <member name="P:Intel.RealSense.Frame.Timestamp">
+            <summary>Gets timestamp from frame handle in milliseconds</summary>
+            <value>the timestamp of the frame in milliseconds</value>
+        </member>
+        <member name="P:Intel.RealSense.Frame.Sensor">
+            <summary>Gets the sensor owning the frame</summary>
+            <value>the pointer to the sensor owning the frame</value>
+        </member>
+        <member name="P:Intel.RealSense.Frame.TimestampDomain">
+            <summary>Gets the timestamp domain from frame handle. timestamps can only be comparable if they are in common domain</summary>
+            <remarks>
+            (for example, depth timestamp might come from system time while color timestamp might come from the device)
+            this method is used to check if two timestamp values are comparable (generated from the same clock)
+            </remarks>
+            <value>the timestamp domain of the frame (camera / microcontroller / system time)</value>
+        </member>
+        <member name="M:Intel.RealSense.Frame.GetFrameMetadata(Intel.RealSense.FrameMetadataValue)">
+            <summary>retrieve metadata from frame handle</summary>
+            <param name="frame_metadata">the <see cref="T:Intel.RealSense.FrameMetadataValue">FrameMetadataValue</see> whose latest frame we are interested in</param>
+            <returns>the metadata value</returns>
+        </member>
+        <member name="M:Intel.RealSense.Frame.SupportsFrameMetaData(Intel.RealSense.FrameMetadataValue)">
+            <summary>determine device metadata</summary>
+            <param name="frame_metadata">the metadata to check for support</param>
+            <returns>true if device has this metadata</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.FrameQueue"/> class.
+            <para>
+            Frame queues are the simplest x-platform synchronization primitive provided by librealsense
+            to help developers who are not using async APIs
+            </para>
+            </summary>
+            <param name="capacity">max number of frames to allow to be stored in the queue before older frames will start to get dropped</param>
+        </member>
+        <member name="P:Intel.RealSense.FrameQueue.Capacity">
+            <summary>
+            Gets the max number of frames to allow to be stored in the queue before older frames will start to get dropped
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.PollForFrame``1(``0@)">
+            <summary>
+            Poll if a new frame is available and dequeue if it is
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="frame">dequeued frame</param>
+            <returns>true if new frame was stored to <paramref name="frame"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.WaitForFrame(System.UInt32)">
+            <summary>
+            Wait until new frame becomes available in the queue and dequeue it
+            </summary>
+            <param name="timeout_ms">max time in milliseconds to wait until an exception will be thrown</param>
+            <returns>dequeued frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.WaitForFrame``1(System.UInt32)">
+            <summary>
+            Wait until new frame becomes available in the queue and dequeue it
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="timeout_ms">max time in milliseconds to wait until an exception will be thrown</param>
+            <returns>dequeued frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.TryWaitForFrame``1(``0@,System.UInt32)">
+            <summary>
+            Wait until new frame becomes available in the queue and dequeue it
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="frame">dequeued frame</param>
+            <param name="timeout_ms">max time in milliseconds to wait until a frame becomes available</param>
+            <returns>true if new frame was stored to <paramref name="frame"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.WaitForFrames(System.UInt32)">
+            <summary>
+            Wait until new frame becomes available in the queue and dequeue it
+            </summary>
+            <param name="timeout_ms">max time in milliseconds to wait until a frame becomes available</param>
+            <returns>dequeued frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameQueue.Enqueue(Intel.RealSense.Frame)">
+            <summary>
+            Enqueue new frame into a queue
+            </summary>
+            <param name="f">frame to enqueue</param>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.FromFrame(Intel.RealSense.Frame)">
+            <summary>
+            Create a new <see cref="T:Intel.RealSense.FrameSet"/> from <see cref="T:Intel.RealSense.Frame"/>
+            </summary>
+            <param name="composite">a composite frame</param>
+            <returns>a new <see cref="T:Intel.RealSense.FrameSet"/> to be disposed</returns>
+            <exception cref="T:System.ArgumentException">Thrown when frame is not a composite frame</exception>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.AsFrame">
+            <summary>
+            Cast this to a <see cref="T:Intel.RealSense.Frame"/>
+            </summary>
+            <returns>a frame to be disposed</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.ForEach(System.Action{Intel.RealSense.Frame})">
+            <summary>
+            Invoke the <paramref name="action"/> delegate on each frame in the set
+            </summary>
+            <param name="action">Delegate to invoke</param>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.First``1(Intel.RealSense.Stream,Intel.RealSense.Format)">
+            <summary>
+            Retrieve back the first frame of specific stream type, if no frame found, error will be thrown
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="stream">stream type of frame to be retrieved</param>
+            <param name="format">format type of frame to be retrieved, defaults to <see cref="F:Intel.RealSense.Format.Any"/></param>
+            <returns>first found frame with <paramref name="stream"/> type and <paramref name="format"/> type</returns>
+            <exception cref="T:System.ArgumentException">Thrown when requested type not found</exception>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.First(Intel.RealSense.Stream,Intel.RealSense.Format)">
+            <summary>
+            Retrieve back the first frame of specific stream type, if no frame found, error will be thrown
+            </summary>
+            <param name="stream">stream type of frame to be retrieved</param>
+            <param name="format">format type of frame to be retrieved, defaults to <see cref="F:Intel.RealSense.Format.Any"/></param>
+            <returns>first found frame with <paramref name="stream"/> type and <paramref name="format"/> type</returns>
+            <exception cref="T:System.ArgumentException">Thrown when requested type not found</exception>
+            <seealso cref="M:Intel.RealSense.FrameSet.First``1(Intel.RealSense.Stream,Intel.RealSense.Format)"/>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.DepthFrame">
+            <summary>Gets the first depth frame</summary>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.ColorFrame">
+            <summary>Gets the first color frame</summary>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.InfraredFrame">
+            <summary>Gets the first infrared frame</summary>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.FishEyeFrame">
+            <summary>Gets the first fisheye frame</summary>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.PoseFrame">
+            <summary>Gets the first pose frame</summary>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.Count">
+            <summary>Gets the number of frames embedded within a composite frame</summary>
+            <value>Number of embedded frames</value>
+        </member>
+        <member name="P:Intel.RealSense.FrameSet.Item(System.Int32)">
+            <summary>Extract frame from within a composite frame</summary>
+            <param name="index">Index of the frame to extract within the composite frame</param>
+            <returns>returns reference to a frame existing within the composite frame</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="index"/> is out of range</exception>
+        </member>
+        <member name="M:Intel.RealSense.FrameSet.AddDisposable(System.IDisposable)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.FramesReleaser.ScopedReturn``1(Intel.RealSense.FramesReleaser,``0)">
+            <summary>
+            Add an object to a releaser (if one is provided) and return the object
+            </summary>
+            <typeparam name="T">type implementing <see cref="T:System.IDisposable"/></typeparam>
+            <param name="releaser">Optional <see cref="T:Intel.RealSense.FramesReleaser"/> to add and object to, or null</param>
+            <param name="obj">object to release</param>
+            <returns>the <paramref name="obj"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.FramesReleaser.AddDisposable(System.IDisposable)">
+            <summary>
+            Add an object to a releaser
+            </summary>
+            <param name="disposable">object to add</param>
+        </member>
+        <member name="T:Intel.RealSense.Points">
+            <summary>
+            Inherit frame class with additional point cloud related attributs/functions
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Points.VertexData">
+            <summary>Gets a pointer to an array of 3D vertices of the model</summary>
+            <remarks>
+            The coordinate system is: X right, Y up, Z away from the camera. Units: Meters
+            </remarks>
+            <value>Pointer to an array of vertices, lifetime is managed by the frame</value>
+        </member>
+        <member name="M:Intel.RealSense.Points.CopyVertices``1(``0[])">
+            <summary>
+            Copy vertex data to managed array
+            </summary>
+            <typeparam name="T">array element type</typeparam>
+            <param name="vertices">Array to copy into</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="vertices"/> is null</exception>
+        </member>
+        <member name="P:Intel.RealSense.Points.TextureData">
+            <summary>Gets a pointer to an array of texture coordinates per vertex</summary>
+            <remarks>
+            Each coordinate represent a (u,v) pair within [0,1] range, to be mapped to texture image
+            </remarks>
+            <value>Pointer to an array of texture coordinates, lifetime is managed by the frame</value>
+        </member>
+        <member name="M:Intel.RealSense.Points.CopyTextureCoords``1(``0[])">
+            <summary>
+            Copy texture coordinates to managed array
+            </summary>
+            <typeparam name="T">array element type</typeparam>
+            <param name="textureArray">Array to copy into</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="textureArray"/> is null</exception>
+        </member>
+        <member name="P:Intel.RealSense.PoseFrame.PoseData">
+            <summary>
+            Gets the transformation represented by the pose data
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.PoseFrame.CopyTo``1(``0@)">
+            <summary>
+            Copy pose data to managed object
+            </summary>
+            <typeparam name="T">struct type with layout matching <see cref="T:Intel.RealSense.Pose"/></typeparam>
+            <param name="pose">object to copy data to</param>
+        </member>
+        <member name="M:Intel.RealSense.PoseFrame.CopyTo``1(``0)">
+            <summary>
+            Copy pose data to managed object
+            </summary>
+            <typeparam name="T">class type with layout matching <see cref="T:Intel.RealSense.Pose"/></typeparam>
+            <param name="pose">object to copy data to</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="pose"/> is null</exception>
+        </member>
+        <member name="P:Intel.RealSense.VideoFrame.Width">
+            <summary>Gets the frame width in pixels</summary>
+            <value>frame width in pixels</value>
+        </member>
+        <member name="P:Intel.RealSense.VideoFrame.Height">
+            <summary>Gets the frame height in pixels</summary>
+            <value>frame height in pixels</value>
+        </member>
+        <member name="P:Intel.RealSense.VideoFrame.Stride">
+            <summary>Gets the frame stride, meaning the actual line width in memory in bytes (not the logical image width)</summary>
+            <value>stride in bytes</value>
+        </member>
+        <member name="P:Intel.RealSense.VideoFrame.BitsPerPixel">
+            <summary>Gets the bits per pixels in the frame image</summary>
+            <remarks>
+            (note that bits per pixel is not necessarily divided by 8, as in 12bpp)
+            </remarks>
+            <value>bits per pixel</value>
+        </member>
+        <member name="M:Intel.RealSense.VideoFrame.CopyTo``1(``0[])">
+            <summary>
+            Copy frame data to managed typed array
+            </summary>
+            <typeparam name="T">array element type</typeparam>
+            <param name="array">array to copy to</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="array"/> is null</exception>
+        </member>
+        <member name="M:Intel.RealSense.VideoFrame.CopyTo(System.IntPtr)">
+            <summary>
+            Copy frame data to pointer
+            </summary>
+            <param name="ptr">destination pointer</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="ptr"/> is null</exception>
+        </member>
+        <member name="M:Intel.RealSense.VideoFrame.CopyFrom``1(``0[])">
+            <summary>
+            Copy data from managed array
+            </summary>
+            <typeparam name="T">array element type</typeparam>
+            <param name="array">array to copy from</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="array"/> is null</exception>
+        </member>
+        <member name="M:Intel.RealSense.VideoFrame.CopyFrom(System.IntPtr)">
+            <summary>
+            Copy data from pointer
+            </summary>
+            <param name="ptr">source pointer</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="ptr"/> is null</exception>
+        </member>
+        <member name="T:Intel.RealSense.ErrorMarshaler">
+            <summary>
+            Custom marshaler for throwing exceptions on errors codes.
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.ICompositeDisposable">
+            <summary>
+            A container for disposing of multiple <see cref="T:System.IDisposable"/> objects
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.ICompositeDisposable.AddDisposable(System.IDisposable)">
+            <summary>
+            Add an <see cref="T:System.IDisposable"/> object to to be disposed along with this instance
+            </summary>
+            <param name="disposable">an <see cref="T:System.IDisposable"/> to to be disposed along with this instance</param>
+        </member>
+        <member name="M:Intel.RealSense.DisposableExtensions.DisposeWith``1(``0,Intel.RealSense.ICompositeDisposable)">
+            <summary>
+            Generic extension method to help dispose of objects
+            </summary>
+            <typeparam name="T">type implementing <see cref="T:System.IDisposable"/></typeparam>
+            <param name="disposable"><see cref="T:System.IDisposable"/> object to add to <paramref name="composite"/></param>
+            <param name="composite">composite disposable container</param>
+            <returns>the <paramref name="disposable"/> object</returns>
+        </member>
+        <member name="T:Intel.RealSense.ObjectPool">
+            <summary>
+            Object pool to reuse objects, avoids allocation and GC pauses
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.ObjectPool.Get``1(System.IntPtr)">
+            <summary>
+            Get an object from the pool, should be released back
+            </summary>
+            <typeparam name="T">type of object</typeparam>
+            <param name="ptr">native handle</param>
+            <returns>an object of type <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.ObjectPool.Release``1(``0)">
+            <summary>
+            Return an object to the pool
+            </summary>
+            <typeparam name="T">type of object</typeparam>
+            <param name="obj">object to return to pool</param>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Value">
+            <summary>Gets or sets option value</summary>
+            <value>value of the option</value>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Min">
+            <summary>Gets the minimum value which will be accepted for this option</summary>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Max">
+            <summary>Gets the maximum value which will be accepted for this option</summary>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Step">
+            <summary>Gets the granularity of options which accept discrete values, or zero if the option accepts continuous values</summary>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Default">
+            <summary>Gets the default value of the option</summary>
+        </member>
+        <member name="P:Intel.RealSense.IOption.ReadOnly">
+            <summary>Gets a value indicating whether an option is read-only</summary>
+            <value><see langword="true"/> if option is read-only</value>
+        </member>
+        <member name="P:Intel.RealSense.IOption.Description">
+            <summary>Gets the option description</summary>
+            <value>human-readable option description</value>
+        </member>
+        <member name="P:Intel.RealSense.IOption.ValueDescription">
+            <summary>Gets the option value description (in case specific option value hold special meaning)</summary>
+            <value>human-readable description of a specific value of an option or null if no special meaning</value>
+        </member>
+        <member name="P:Intel.RealSense.OptionInternal.Description">
+            <summary>Gets the option description</summary>
+            <value>human-readable option description</value>
+        </member>
+        <member name="P:Intel.RealSense.OptionInternal.Value">
+            <summary>Gets or sets option value</summary>
+            <value>value of the option</value>
+        </member>
+        <member name="M:Intel.RealSense.OptionInternal.GetValueDescription(System.Single)">
+            <summary>get option value description (in case specific option value hold special meaning)</summary>
+            <param name="value">value of the option</param>
+            <returns>human-readable description of a specific value of an option or null if no special meaning</returns>
+        </member>
+        <member name="P:Intel.RealSense.OptionInternal.ValueDescription">
+            <summary>Gets the option value description (in case specific option value hold special meaning)</summary>
+            <value>human-readable description of a specific value of an option or null if no special meaning</value>
+        </member>
+        <member name="P:Intel.RealSense.OptionInternal.ReadOnly">
+            <summary>Gets a value indicating whether an option is read-only</summary>
+            <value><see langword="true"/> if option is read-only</value>
+        </member>
+        <member name="P:Intel.RealSense.OptionsList.Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.OptionsList.SyncRoot">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.OptionsList.IsSynchronized">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.OptionsList.Supports(Intel.RealSense.Option)">
+            <summary>
+            check if particular option is supported by a subdevice
+            </summary>
+            <param name="option">option id to be checked</param>
+            <returns>true if option is supported</returns>
+        </member>
+        <member name="M:Intel.RealSense.OptionsList.OptionValueDescription(Intel.RealSense.Option,System.Single)">
+            <summary>get option value description (in case specific option value hold special meaning)</summary>
+            <param name="option">option id to be checked</param>
+            <param name="value">value of the option</param>
+            <returns>human-readable description of a specific value of an option or null if no special meaning</returns>
+        </member>
+        <member name="M:Intel.RealSense.OptionsList.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.OptionsList.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.OptionsList.CopyTo(System.Array,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Intel.RealSense.Config">
+            <summary>
+            The config allows pipeline users to request filters for the pipeline streams and device selection and configuration.
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Pipeline">
+            <summary>
+            The pipeline simplifies the user interaction with the device and computer vision processing modules.
+            </summary>
+            <remarks>
+            The class abstracts the camera configuration and streaming, and the vision modules triggering and threading.
+            It lets the application focus on the computer vision output of the modules, or the device output data.
+            The pipeline can manage computer vision modules, which are implemented as a processing blocks.
+            The pipeline is the consumer of the processing block interface, while the application consumes the
+            computer vision interface.
+            </remarks>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.#ctor(Intel.RealSense.Context)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.Pipeline"/> class.
+            </summary>
+            <param name="ctx">context</param>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.Pipeline"/> class.
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.Start">
+            <summary>Start the pipeline streaming with its default configuration.</summary>
+            <remarks>
+            Starting the pipeline is possible only when it is not started. If the pipeline was started, an exception is raised.
+            </remarks>
+            <returns>The actual pipeline device and streams profile, which was successfully configured to the streaming device.</returns>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.Start(Intel.RealSense.Config)">
+            <summary>
+            Start the pipeline streaming according to the configuraion.
+            </summary>
+            <param name="cfg">A <see cref="T:Intel.RealSense.Config"/> with requested filters on the pipeline configuration. By default no filters are applied.</param>
+            <returns>The actual pipeline device and streams profile, which was successfully configured to the streaming device.</returns>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.Start(Intel.RealSense.FrameCallback)">
+            <summary>
+            Start the pipeline streaming with its default configuration.
+            <para>
+            The pipeline captures samples from the device, and delivers them to the through the provided frame callback.
+            </para>
+            </summary>
+            <remarks>
+            Starting the pipeline is possible only when it is not started. If the pipeline was started, an exception is raised.
+            When starting the pipeline with a callback both <see cref="M:Intel.RealSense.Pipeline.WaitForFrames(System.UInt32)"/> or <see cref="M:Intel.RealSense.Pipeline.PollForFrames(Intel.RealSense.FrameSet@)"/> will throw exception.
+            </remarks>
+            <param name="cb">Delegate to register as per-frame callback</param>
+            <returns>The actual pipeline device and streams profile, which was successfully configured to the streaming device.</returns>
+        </member>
+        <member name="M:Intel.RealSense.Pipeline.Stop">
+            <summary>
+            Stop the pipeline streaming.
+            </summary>
+            <remarks>
+            The pipeline stops delivering samples to the attached computer vision modules and processing blocks, stops the device streaming
+            and releases the device resources used by the pipeline. It is the application's responsibility to release any frame reference it owns.
+            The method takes effect only after <see cref="M:Intel.RealSense.Pipeline.Start"/> was called, otherwise an exception is raised.
+            </remarks>
+        </member>
+        <member name="P:Intel.RealSense.Pipeline.ActiveProfile">
+            <summary>Gets the active device and streams profiles, used by the pipeline.</summary>
+            <remarks>The method returns a valid result only when the pipeline is active</remarks>
+            <value>The actual pipeline device and streams profile, which was successfully configured to the streaming device on start.</value>
+        </member>
+        <member name="T:Intel.RealSense.PipelineProfile">
+            <summary>
+            The pipeline profile includes a device and a selection of active streams, with specific profile.
+            <para>
+            The profile is a selection of the above under filters and conditions defined by the pipeline.
+            Streams may belong to more than one sensor of the device.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.PipelineProfile.Device">
+            <summary>
+            Gets the device used by the pipeline.
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.PipelineProfile.Streams">
+            <summary>
+            Gets the selected streams profiles, which are enabled in this profile.
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.PipelineProfile.GetStream``1(Intel.RealSense.Stream,System.Int32)">
+            <summary>
+            Return the selected stream profile, which are enabled in this profile.
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.StreamProfile"/> type or subclass</typeparam>
+            <param name="s">Stream type of the desired profile</param>
+            <param name="index">Stream index of the desired profile. -1 for any matching.</param>
+            <returns>The first matching stream profile</returns>
+            <exception cref="T:System.ArgumentException">Thrown when the <see cref="T:Intel.RealSense.PipelineProfile"/> does not contain the request stream</exception>
+        </member>
+        <member name="T:Intel.RealSense.CustomProcessingBlock">
+            <summary>
+            Custom processing block based on a delegate. This lets the users pass frames between module boundaries for processing
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.#ctor(Intel.RealSense.CustomProcessingBlock.FrameProcessorCallback)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.CustomProcessingBlock"/> class.
+            </summary>
+            <param name="cb">Processing function to be applied to every frame entering the block</param>
+        </member>
+        <member name="P:Intel.RealSense.CustomProcessingBlock.Options">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.Process``1(``0)">
+            <summary>
+            This method is used to pass frames into a processing block
+            </summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Frame"/> type or subclass</typeparam>
+            <param name="f">Frame to process</param>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.Start(Intel.RealSense.FrameQueue)">
+            <summary>
+            Start the processing block, delivering frames to external queue
+            </summary>
+            <param name="queue"><see cref="T:Intel.RealSense.FrameQueue"/> to place the processed frames in</param>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.Start">
+            <summary>
+            Start the processing block
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.Start(Intel.RealSense.FrameCallback)">
+            <summary>
+            Start the processing block, delivering frames to a callback
+            </summary>
+            <param name="cb">callback to receive frames</param>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.RegisterOption(Intel.RealSense.Option,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            This method adds a custom option to a custom processing block.
+            </summary>
+            <param name="option_id">ID for referencing the option</param>
+            <param name="min">the minimum value which will be accepted for this option</param>
+            <param name="max">the maximum value which will be accepted for this option</param>
+            <param name="step">the granularity of options which accept discrete values, or zero if the option accepts continuous values</param>
+            <param name="def">the default value of the option.This will be the initial value.</param>
+            <returns>true if adding the option succeeds. false if it fails e.g. an option with this id is already registered</returns>
+        </member>
+        <member name="M:Intel.RealSense.CustomProcessingBlock.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:Intel.RealSense.CustomProcessingBlock.FrameProcessorCallback">
+            <summary>
+            Processing delegate to be applied to every frame entering the block
+            </summary>
+            <param name="frame">frame entering the processing block</param>
+            <param name="source">frame source used to notify frame ready <see cref="M:Intel.RealSense.FrameSource.FrameReady(Intel.RealSense.Frame)"/> </param>
+        </member>
+        <member name="M:Intel.RealSense.FrameSource.AllocateCompositeFrame(Intel.RealSense.Frame[])">
+            <summary>
+            Allocate new composite frame, aggregating a set of existing frames
+            </summary>
+            <param name="frames">array of frames</param>
+            <returns>a newly allocated frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.FrameSource.AllocateCompositeFrame(System.Collections.Generic.IList{Intel.RealSense.Frame})">
+            <summary>
+            Allocate new composite frame, aggregating a set of existing frames
+            </summary>
+            <param name="frames">list of frames</param>
+            <returns>a newly allocated frame</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="frames"/> is null</exception>
+        </member>
+        <member name="M:Intel.RealSense.FrameSource.FrameReady(Intel.RealSense.Frame)">
+            <summary>
+            This method will dispatch frame callback on a frame
+            </summary>
+            <param name="f">frame to dispatch</param>
+        </member>
+        <member name="T:Intel.RealSense.ProcessingBlock">
+            <summary>
+            Base class for processing blocks
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.ProcessingBlock.Options">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.ProcessingBlock.Queue">
+            <summary>
+            Gets the internal queue
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.ProcessingBlock.#ctor(System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.ProcessingBlock"/> class.
+            <para>
+            Starts the processing block directing it's output to the <see cref="P:Intel.RealSense.ProcessingBlock.Queue"/>
+            </para>
+            </summary>
+            <param name="ptr">native <c>rs2_processing_block*</c> pointer</param>
+        </member>
+        <member name="M:Intel.RealSense.ProcessingBlock.Process(Intel.RealSense.Frame)">
+            <summary>
+            Process frame and return the result
+            </summary>
+            <param name="original">Frame to process</param>
+            <returns>Processed frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.ProcessingBlock.Process``1(Intel.RealSense.Frame)">
+            <summary>
+            Process frame and return the result
+            </summary>
+            <typeparam name="T">Type of frame to return</typeparam>
+            <param name="original">Frame to process</param>
+            <returns>Processed frame</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when errors occur during processing</exception>
+        </member>
+        <member name="M:Intel.RealSense.ProcessingBlock.Is(Intel.RealSense.Extension)">
+            <summary>Test if the given processing block can be extended to the requested extension</summary>
+            <param name="extension">The extension to which the processing block should be tested if it is extendable</param>
+            <returns><see langword="true"/> iff the processing block can be extended to the given extension</returns>
+        </member>
+        <member name="M:Intel.RealSense.ProcessingBlock.As``1">
+            <summary>Cast to a strongly-typed <see cref="T:Intel.RealSense.ProcessingBlock"/> subclass</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.ProcessingBlock"/> type or subclass</typeparam>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.Syncer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Intel.RealSense.Syncer"/> class.
+            <para>
+            This block accepts arbitrary frames and outputs composite frames of best matches.
+            Some frames may be released within the syncer if they are waiting for match for too long.
+            Syncronization is done (mostly) based on timestamps so good hardware timestamps are a pre-condition.
+            </para>
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Syncer.SubmitFrame(Intel.RealSense.Frame)">
+            <summary>
+            This method is used to pass frame into a processing block
+            </summary>
+            <param name="f">frame to process</param>
+        </member>
+        <member name="M:Intel.RealSense.Syncer.WaitForFrames(System.UInt32)">
+            <summary>
+            Wait until new frame becomes available in the queue and dequeue it
+            </summary>
+            <param name="timeout_ms">max time in milliseconds to wait until an exception will be thrown</param>
+            <returns>dequeued frame</returns>
+        </member>
+        <member name="M:Intel.RealSense.Syncer.PollForFrames(Intel.RealSense.FrameSet@)">
+            <summary>
+            Poll if a new frame is available and dequeue if it is
+            </summary>
+            <param name="result">dequeued frame</param>
+            <returns>true if new frame was stored to <paramref name="result"/></returns>
+        </member>
+        <member name="M:Intel.RealSense.MaxUsableRangeSensor.GetMaxUsableRange">
+            <summary>
+            Returns the maximum range of the camera given the amount of ambient light in the scene [m]
+            </summary>
+            <returns>maximum usable range</returns>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Create``1(Intel.RealSense.Sensor)">
+            <summary>Returns a strongly-typed clone</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Sensor"/> type or subclass</typeparam>
+            <param name="other"><see cref="T:Intel.RealSense.Sensor"/> to clone</param>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.CameraInfos.Item(Intel.RealSense.CameraInfo)">
+            <summary>retrieve sensor specific information, like versions of various internal components</summary>
+            <param name="info">camera info type to retrieve</param>
+            <returns>the requested camera info string, in a format specific to the device model</returns>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.CameraInfos.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.CameraInfos.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.Options">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Open(Intel.RealSense.StreamProfile)">
+            <summary>open subdevice for exclusive access, by committing to a configuration</summary>
+            <param name="profile">stream profile that defines single stream configuration</param>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Open(Intel.RealSense.StreamProfile[])">
+            <summary>open subdevice for exclusive access, by committing to composite configuration, specifying one or more stream profiles</summary>
+            <remarks>
+            this method should be used for interdependent streams, such as depth and infrared, that have to be configured together
+            </remarks>
+            <param name="profiles">list of stream profiles</param>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Start(Intel.RealSense.FrameQueue)">
+            <summary>
+            start streaming from specified configured sensor of specific stream to frame queue
+            </summary>
+            <param name="queue">frame-queue to store new frames into</param>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Start(Intel.RealSense.FrameCallback)">
+            <summary>start streaming from specified configured sensor</summary>
+            <param name="cb">delegate to register as per-frame callback</param>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Stop">
+            <summary>
+            stops streaming from specified configured device
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.Close">
+            <summary>
+            close subdevice for exclusive access this method should be used for releasing device resource
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.Sensor.As``1">
+            <summary>Returns a strongly-typed clone</summary>
+            <typeparam name="T"><see cref="T:Intel.RealSense.Sensor"/> type or subclass</typeparam>
+            <returns>an instance of <typeparamref name="T"/></returns>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.DepthScale">
+            <summary>
+            Gets the mapping between the units of the depth image and meters
+            </summary>
+            <value>depth in meters corresponding to a depth value of 1</value>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.AutoExposureSettings">
+            <summary>
+            Gets the active region of interest to be used by auto-exposure algorithm
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.StreamProfiles">
+            <summary>Gets the list of supported stream profiles</summary>
+            <value>list of stream profiles that given subdevice can provide</value>
+        </member>
+        <member name="P:Intel.RealSense.Sensor.ProcessingBlocks">
+            <summary>Gets the list of recommended processing blocks for a specific sensor.</summary>
+            <remarks>
+            Order and configuration of the blocks are decided by the sensor
+            </remarks>
+            <value>list of supported sensor recommended processing blocks</value>
+        </member>
+        <member name="T:Intel.RealSense.SensorList">
+            <summary>
+            List of adjacent devices, sharing the same physical parent composite device
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.SensorList.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.SensorList.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.SensorList.CopyTo(System.Array,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.SensorList.Count">
+            <summary>
+            Gets the number of sensors in the list
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.SensorList.Item(System.Int32)">
+            <summary>
+            Creates sensor by index
+            </summary>
+            <param name="index">the zero based index of sensor to retrieve</param>
+            <returns>the requested sensor</returns>
+        </member>
+        <member name="M:Intel.RealSense.SoftwareSensor.SetMetadata(Intel.RealSense.FrameMetadataValue,System.Int64)">
+            <summary>
+            Set frame metadata for the upcoming frames
+            </summary>
+            <param name="type">metadata key to set</param>
+            <param name="value">metadata value</param>
+        </member>
+        <member name="M:Intel.RealSense.SoftwareSensor.AddReadOnlyOption(Intel.RealSense.Option,System.Single)">
+            <summary>
+            Register option that will be supported by the sensor
+            </summary>
+            <param name="opt">the option</param>
+            <param name="value">the initial value</param>
+        </member>
+        <member name="M:Intel.RealSense.SoftwareSensor.UpdateReadOnlyOption(Intel.RealSense.Option,System.Single)">
+            <summary>
+            Update value of registered option
+            </summary>
+            <param name="opt">the option</param>
+            <param name="value">updated value</param>
+        </member>
+        <member name="T:Intel.RealSense.StreamProfile">
+            <summary>
+            Class to store the profile of stream
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.Stream">
+            <summary>
+            Gets the stream type of the profile
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.Format">
+            <summary>
+            Gets the binary data format of the profile
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.Framerate">
+            <summary>
+            Gets the expected rate for data frames to arrive, meaning expected number of frames per second
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.Index">
+            <summary>
+            Gets the stream index the input profile in case there are multiple streams of the same type
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.UniqueID">
+            <summary>
+            Gets the identifier for the stream profile, unique within the application
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfile.IsDefault">
+            <summary>
+            Gets a value indicating whether the profile is recommended for the sensor
+            <para>
+            This is an optional hint we offer to suggest profiles with best performance-quality tradeof
+            </para>
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfile.GetExtrinsicsTo(Intel.RealSense.StreamProfile)">
+            <summary>
+            Gets the extrinsics from this profile to the other
+            </summary>
+            <param name="other">target stream profile</param>
+            <returns>extrinsics from this to target</returns>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfile.Clone(Intel.RealSense.Stream,System.Int32,Intel.RealSense.Format)">
+            <summary>
+            Clone the current profile and change the type, index and format to input parameters
+            </summary>
+            <param name="type">will change the stream type from the cloned profile.</param>
+            <param name="index">will change the stream index from the cloned profile.</param>
+            <param name="format">will change the stream format from the cloned profile.</param>
+            <returns>the cloned stream profile.</returns>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfile.Is(Intel.RealSense.Extension)">
+            <summary>
+            Try to extend stream profile to an extension type
+            </summary>
+            <param name="e">extension type</param>
+            <returns>true if profile is extendable to specified extension</returns>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfileList.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfileList.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfileList.Count">
+            <summary>Gets the number of supported stream profiles</summary>
+            <value>number of supported subdevice profiles</value>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfileList.SyncRoot">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfileList.IsSynchronized">
+            <inheritdoc/>
+        </member>
+        <member name="P:Intel.RealSense.StreamProfileList.Item(System.Int32)">
+            <summary>
+            Gets a specific stream profile
+            </summary>
+            <param name="index">the zero based index of the streaming mode</param>
+            <returns>stream profile at given index</returns>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfileList.GetProfile``1(System.Int32)">
+            <summary>
+            Gets a specific stream profile
+            </summary>
+            <param name="index">the zero based index of the streaming mode</param>
+            <typeparam name="T">type of StreamProfile or a subclass</typeparam>
+            <returns>stream profile at given index</returns>
+        </member>
+        <member name="M:Intel.RealSense.StreamProfileList.CopyTo(System.Array,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Intel.RealSense.VideoStreamProfile">
+            <summary>
+            Video stream profile instance which contains additional video attributes
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.VideoStreamProfile.GetIntrinsics">
+            <summary>
+            Returns this profile's <see cref="T:Intel.RealSense.Intrinsics"/>
+            </summary>
+            <returns>resulting intrinsics for the video profile</returns>
+        </member>
+        <member name="M:Intel.RealSense.VideoStreamProfile.Clone(Intel.RealSense.Stream,System.Int32,Intel.RealSense.Format,System.Int32,System.Int32,Intel.RealSense.Intrinsics)">
+            <summary>
+            Clone current profile and change the type, index and format to input parameters
+            </summary>
+            <param name="type">will change the stream type from the cloned profile.</param>
+            <param name="index">will change the stream index from the cloned profile.</param>
+            <param name="format">will change the stream format from the cloned profile.</param>
+            <param name="width">will change the width of the profile.</param>
+            <param name="height">will change the height of the profile.</param>
+            <param name="intr">will change the intrinsics of the profile.</param>
+            <returns>the cloned stream profile.</returns>
+        </member>
+        <member name="P:Intel.RealSense.VideoStreamProfile.Width">
+            <summary>
+            Gets the width in pixels of the video stream
+            </summary>
+        </member>
+        <member name="P:Intel.RealSense.VideoStreamProfile.Height">
+            <summary>
+            Gets the height in pixels of the video stream
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.CameraInfo">
+            <summary>
+            Read-only strings that can be queried from the device.
+            </summary>
+            <remarks>
+            Not all information attributes are available on all camera types.
+            This information is mainly available for camera debug and troubleshooting and should not be used in applications. */
+            </remarks>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.Name">
+            <summary> Friendly name</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.SerialNumber">
+            <summary> Device serial number</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.FirmwareVersion">
+            <summary> Primary firmware version</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.RecommendedFirmwareVersion">
+            <summary> Recommended firmware version</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.PhysicalPort">
+            <summary> Unique identifier of the port the device is connected to (platform specific)</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.DebugOpCode">
+            <summary> If device supports firmware logging, this is the command to send to get logs from firmware</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.AdvancedMode">
+            <summary> True iff the device is in advanced mode</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.ProductId">
+            <summary> Product ID as reported in the USB descriptor</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.CameraLocked">
+            <summary> True iff EEPROM is locked</summary>
+        </member>
+        <member name="F:Intel.RealSense.CameraInfo.UsbTypeDescriptor">
+            <summary> Designated USB specification: USB2/USB3</summary>
+        </member>
+        <member name="T:Intel.RealSense.Distortion">
+            <summary>
+            Distortion model: defines how pixel coordinates should be mapped to sensor coordinates.
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Distortion.None">
+            <summary> Rectilinear images. No distortion compensation required.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Distortion.ModifiedBrownConrady">
+            <summary> Equivalent to Brown-Conrady distortion, except that tangential distortion is applied to radially distorted points</summary>
+        </member>
+        <member name="F:Intel.RealSense.Distortion.InverseBrownConrady">
+            <summary> Equivalent to Brown-Conrady distortion, except undistorts image instead of distorting it</summary>
+        </member>
+        <member name="F:Intel.RealSense.Distortion.Ftheta">
+            <summary> F-Theta fish-eye distortion model</summary>
+        </member>
+        <member name="F:Intel.RealSense.Distortion.BrownConrady">
+            <summary> Unmodified Brown-Conrady distortion model</summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "F:Intel.RealSense.Distortion.KannalaBrandt4" -->
+        <member name="T:Intel.RealSense.ExceptionType">
+            <summary>
+            Exception types are the different categories of errors that RealSense API might return
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.CameraDisconnected">
+            <summary> Device was disconnected, this can be caused by outside intervention, by internal firmware error or due to insufficient power</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.Backend">
+            <summary> Error was returned from the underlying OS-specific layer</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.InvalidValue">
+            <summary> Invalid value was passed to the API</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.WrongApiCallSequence">
+            <summary> Function precondition was violated</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.NotImplemented">
+            <summary> The method is not implemented at this point</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.DeviceInRecoveryMode">
+            <summary> Device is in recovery mode and might require firmware update</summary>
+        </member>
+        <member name="F:Intel.RealSense.ExceptionType.Io">
+            <summary> IO Device failure</summary>
+        </member>
+        <member name="T:Intel.RealSense.Extension">
+            <summary>
+            Specifies advanced interfaces (capabilities) objects may implement
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Format">
+            <summary>
+            Format identifies how binary data is encoded within a frame
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Any">
+            <summary>When passed to enable stream, librealsense will try to provide best suited format</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Z16">
+            <summary>16-bit linear depth values. The depth is meters is equal to depth scale * pixel value.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Disparity16">
+            <summary>16-bit float-point disparity values. Depth->Disparity conversion : Disparity = Baseline*FocalLength/Depth.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Xyz32f">
+            <summary>32-bit floating point 3D coordinates.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Yuyv">
+            <summary>32-bit y0, u, y1, v data for every two pixels. Similar to YUV422 but packed in a different order - https://en.wikipedia.org/wiki/YUV</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Rgb8">
+            <summary>8-bit red, green and blue channels</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Bgr8">
+            <summary>8-bit blue, green, and red channels -- suitable for OpenCV</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Rgba8">
+            <summary>8-bit red, green and blue channels + constant alpha channel equal to FF</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Bgra8">
+            <summary>8-bit blue, green, and red channels + constant alpha channel equal to FF</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Y8">
+            <summary>8-bit per-pixel grayscale image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Y16">
+            <summary>16-bit per-pixel grayscale image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Raw10">
+            <summary>Four 10-bit luminance values encoded into a 5-byte macropixel</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Raw16">
+            <summary>16-bit raw image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Raw8">
+            <summary>8-bit raw image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Uyvy">
+            <summary>Similar to the standard YUYV pixel format, but packed in a different order</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.MotionRaw">
+            <summary>Raw data from the motion sensor</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.MotionXyz32f">
+            <summary>Motion data packed as 3 32-bit float values, for X, Y, and Z axis</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.GpioRaw">
+            <summary>Raw data from the external sensors hooked to one of the GPIO's</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.SixDOF">
+            <summary>Pose data packed as floats array, containing translation vector, rotation quaternion and prediction velocities and accelerations vectors</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Disparity32">
+            <summary>32-bit float-point disparity values. Depth->Disparity conversion : Disparity = Baseline*FocalLength/Depth</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Y10BPack">
+            <summary>16-bit per-pixel grayscale image unpacked from 10 bits per pixel packed ([8:8:8:8:2222]) grey-scale image. The data is unpacked to LSB and padded with 6 zero bits</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Distance">
+            <summary>32-bit float-point depth distance value.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Mjpeg">
+            <summary>Bitstream encoding for video in which an image of each frame is encoded as JPEG-DIB.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Y8i">
+            <summary>8-bit per pixel interleaved. 8-bit left, 8-bit right.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Y12I">
+            <summary>12-bit per pixel interleaved. 12-bit left, 12-bit right. Each pixel is stored in a 24-bit word in little-endian order.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Inzi">
+            <summary>multi-planar Depth 16bit + IR 10bit.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Invi">
+            <summary>8-bit IR stream.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.W10">
+            <summary>Grey-scale image as a bit-packed array. 4 pixel data stream taking 5 bytes.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.Z16H">
+            <summary>Variable-length Huffman-compressed 16-bit depth values.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Format.FG">
+            <summary>16-bit per-pixel frame grabber format.</summary>
+        </member>
+        <member name="T:Intel.RealSense.FrameMetadataValue">
+            <summary>
+            Per-Frame-Metadata are set of read-only properties that might be exposed for each individual frame
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameCounter">
+            <summary>A sequential index managed per-stream. Integer value</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameTimestamp">
+            <summary>Timestamp set by device clock when data readout and transmit commence. usec</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.SensorTimestamp">
+            <summary>Timestamp of the middle of sensor's exposure calculated by device. usec</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ActualExposure">
+            <summary>Sensor's exposure width. When Auto Exposure (AE) is on the value is controlled by firmware. usec</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.GainLevel">
+            <summary>A relative value increasing which will increase the Sensor's gain factor. \ When AE is set On, the value is controlled by firmware. Integer value</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.AutoExposure">
+            <summary>Auto Exposure Mode indicator. Zero corresponds to AE switched off.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.WhiteBalance">
+            <summary>White Balance setting as a color temperature. Kelvin degrees</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.TimeOfArrival">
+            <summary>Time of arrival in system clock</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Temperature">
+            <summary>Temperature of the device, measured at the time of the frame capture. Celsius degrees</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.BackendTimestamp">
+            <summary>Timestamp get from uvc driver. usec</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ActualFps">
+            <summary>Actual fps</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameLaserPower">
+            <summary>Laser power value 0-360.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameLaserPowerMode">
+            <summary>Laser power mode. Zero corresponds to Laser power switched off and one for switched on.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ExposurePriority">
+            <summary>Exposure priority.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ExposureRoiLeft">
+            <summary>Left region of interest for the auto exposure Algorithm.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ExposureRoiRight">
+            <summary>Right region of interest for the auto exposure Algorithm.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ExposureRoiTop">
+            <summary>Top region of interest for the auto exposure Algorithm.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ExposureRoiBottom">
+            <summary>Bottom region of interest for the auto exposure Algorithm.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Brightness">
+            <summary>Color image brightness.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Contrast">
+            <summary>Color image contrast.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Saturation">
+            <summary>Color image saturation.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Sharpness">
+            <summary>Color image sharpness.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.AutoWhiteBalanceTemperature">
+            <summary>Auto white balance temperature Mode indicator. Zero corresponds to automatic mode switched off.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.BacklightCompensation">
+            <summary>Color backlight compensation. Zero corresponds to switched off.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Hue">
+            <summary>Color image hue.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.Gamma">
+            <summary>Color image gamma.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.ManualWhiteBalance">
+            <summary>Color image white balance.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.PowerLineFrequency">
+            <summary>Power Line Frequency for anti-flickering Off/50Hz/60Hz/Auto.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.LowLightCompensation">
+            <summary>Color lowlight compensation. Zero corresponds to switched off.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameEmitterMode">
+            <summary>Emitter mode: 0 – all emitters disabled. 1 – laser enabled. 2 – auto laser enabled (opt). 3 – LED enabled (opt).</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.FrameLedPower">
+            <summary>Led power value 0-360.</summary>
+        </member>
+        <member name="F:Intel.RealSense.FrameMetadataValue.RawFrameSizeBytes">
+            <summary>The number of transmitted payload bytes, not including metadata.</summary>
+        </member>
+        <member name="T:Intel.RealSense.L500VisualPreset">
+            <summary>
+            For L500 devices: provides optimized settings (presets) for specific types of usage.
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.LogSeverity">
+            <summary>
+            Severity of the librealsense logger
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.Debug">
+            <summary> Detailed information about ordinary operations</summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.Info">
+            <summary> Terse information about ordinary operations</summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.Warn">
+            <summary> Indication of possible failure</summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.Error">
+            <summary> Indication of definite failure</summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.Fatal">
+            <summary> Indication of unrecoverable failure</summary>
+        </member>
+        <member name="F:Intel.RealSense.LogSeverity.None">
+            <summary> No logging will occur</summary>
+        </member>
+        <member name="T:Intel.RealSense.NotificationCategory">
+            <summary>
+            Category of the librealsense notifications
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.FramesTimeout">
+            <summary> Frames didn't arrived within 5 seconds</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.FrameCorrupted">
+            <summary> Received partial/incomplete frame</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.HardwareError">
+            <summary> Error reported from the device</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.HardwareEvent">
+            <summary> General Hardeware notification that is not an error</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.UnknownError">
+            <summary> Received unknown error from the device</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.FirmwareUpdateRecommended">
+            <summary> Current firmware version installed is not the latest available</summary>
+        </member>
+        <member name="F:Intel.RealSense.NotificationCategory.PoseRelocalization">
+            <summary> A relocalization event has updated the pose provided by a pose sensor</summary>
+        </member>
+        <member name="T:Intel.RealSense.Option">
+            <summary>
+            Defines general configuration controls.
+            <para>
+            These can generally be mapped to camera UVC controls, and unless stated otherwise, can be set/queried at any time.
+            </para>
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.BacklightCompensation">
+            <summary>Enable / disable color backlight compensation</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Brightness">
+            <summary>Color image brightness</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Contrast">
+            <summary>Color image contrast</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Exposure">
+            <summary>Controls exposure time of color camera. Setting any value will disable auto exposure</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Gain">
+            <summary>Color image gain</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Gamma">
+            <summary>Color image gamma setting</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Hue">
+            <summary>Color image hue</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Saturation">
+            <summary>Color image saturation setting</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Sharpness">
+            <summary>Color image sharpness setting</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.WhiteBalance">
+            <summary>Controls white balance of color image. Setting any value will disable auto white balance</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableAutoExposure">
+            <summary>Enable / disable color image auto-exposure</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableAutoWhiteBalance">
+            <summary>Enable / disable color image auto-white-balance</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.VisualPreset">
+            <summary>Provide access to several recommend sets of option presets for the depth camera</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.LaserPower">
+            <summary>Power of the F200 / SR300 projector, with 0 meaning projector off</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.Accuracy">
+            <summary>Set the number of patterns projected per frame. The higher the accuracy value the more patterns projected. Increasing the number of patterns help to achieve better accuracy. Note that this control is affecting the Depth FPS</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MotionRange">
+            <summary>Motion vs. Range trade-off, with lower values allowing for better motion sensitivity and higher values allowing for better depth range</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FilterOption">
+            <summary>Set the filter to apply to each depth frame. Each one of the filter is optimized per the application requirements</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ConfidenceThreshold">
+            <summary>The confidence level threshold used by the Depth algorithm pipe to set whether a pixel will get a valid range or will be marked with invalid range</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EmitterEnabled">
+            <summary>Laser Emitter enabled</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FramesQueueSize">
+            <summary>Number of frames the user is allowed to keep per stream. Trying to hold-on to more frames will cause frame-drops.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.TotalFrameDrops">
+            <summary>Total number of detected frame drops from all streams</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AutoExposureMode">
+            <summary>Auto-Exposure modes: Static, Anti-Flicker and Hybrid</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.PowerLineFrequency">
+            <summary>Power Line Frequency control for anti-flickering Off/50Hz/60Hz/Auto</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AsicTemperature">
+            <summary>Current Asic Temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ErrorPollingEnabled">
+            <summary>disable error handling</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ProjectorTemperature">
+            <summary>Current Projector Temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.OutputTriggerEnabled">
+            <summary>Enable / disable trigger to be outputed from the camera to any external device on every depth frame</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MotionModuleTemperature">
+            <summary>Current Motion-Module Temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.DepthUnits">
+            <summary>Number of meters represented by a single depth unit</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableMotionCorrection">
+            <summary>Enable/Disable automatic correction of the motion data</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AutoExposurePriority">
+            <summary>Allows sensor to dynamically ajust the frame rate depending on lighting conditions</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ColorScheme">
+            <summary>Color scheme for data visualization</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HistogramEqualizationEnabled">
+            <summary>Perform histogram equalization post-processing on the depth data</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MinDistance">
+            <summary>Minimal distance to the target</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MaxDistance">
+            <summary>Maximum distance to the target</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.TextureSource">
+            <summary>Texture mapping stream unique ID</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FilterMagnitude">
+            <summary>The 2D-filter effect. The specific interpretation is given within the context of the filter</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FilterSmoothAlpha">
+            <summary>2D-filter parameter controls the weight/radius for smoothing.</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FilterSmoothDelta">
+            <summary>2D-filter range/validity threshold</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HolesFill">
+            <summary>Enhance depth data post-processing with holes filling where appropriate</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.StereoBaseline">
+            <summary>The distance in mm between the first and the second imagers in stereo-based depth cameras</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AutoExposureConvergeStep">
+            <summary>Allows dynamically ajust the converge step value of the target exposure in Auto-Exposure algorithm</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.InterCamSyncMode">
+            <summary>Impose Inter-camera HW synchronization mode. Applicable for D400/Rolling Shutter SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.StreamFilter">
+            <summary>Select a stream to process</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.StreamFormatFilter">
+            <summary>Select a stream format to process</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.StreamIndexFilter">
+            <summary>Select a stream index to process</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EmitterOnOff">
+            <summary>When supported, this option make the camera to switch the emitter state every frame. 0 for disabled, 1 for enabled</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ZeroOrderPointX">
+            <summary>Deprecated!!! - Zero order point x</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ZeroOrderPointY">
+            <summary>Deprecated!!! - Zero order point y</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.LLDTemperature">
+            <summary>LLD temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MCTemperature">
+            <summary>MC temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.MATemperature">
+            <summary>MA temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HardwarePreset">
+            <summary>Hardware stream configuration</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.GlobalTimeEnabled">
+            <summary>Disable global time</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.APDTemperature">
+            <summary>APD temperature</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableMapping">
+            <summary>Enable an internal map</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableRelocalization">
+            <summary>Enable appearance based relocalization</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnablePoseJumping">
+            <summary>Enable position jumping</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableDynamicCalibration">
+            <summary>Enable dynamic calibration</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.DepthOffset">
+            <summary>Offset from sensor to depth origin in millimetrers</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.LedPower">
+            <summary>Power of the LED (light emitting diode), with 0 meaning LED off</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ZeroOrderEnabled">
+            <summary>Deprecated!!! - Toggle Zero-Order mode</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableMapPreservation">
+            <summary>Preserve previous map when starting</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.FreeFallDetectionEnabled">
+            <summary>Enable/disable sensor shutdown when a free-fall is detected (on by default)</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.APDExposureTime">
+            <summary>Changes the exposure time of Avalanche Photo Diode in the receiver</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.PostProcessingSharpening">
+            <summary>Changes the amount of sharpening in the post-processed image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.PreProcessingSharpening">
+            <summary>Changes the amount of sharpening in the pre-processed image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.NoiseFilterLevel">
+            <summary>Control edges and background noise</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.InvalidationBypass">
+            <summary>Enable\disable pixel invalidation</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AmbientLightEnvLevel">
+            <summary>Deprecated - Use digital gain option, Change the depth ambient light see rs2_ambient_light for values</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.DigitalGain">
+            <summary>Change the depth digital gain see rs2_digital_gain for values</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.SensorMode">
+            <summary>The resolution mode: see rs2_sensor_mode for values</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EmitterAlwaysOn">
+            <summary>Enable Laser On constantly (GS SKU Only)</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ThermalCompensation">
+            <summary>Depth Thermal Compensation for selected D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.TriggerCameraAccuracyHealth">
+            <summary>Camera Accuracy Health</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.ResetCameraAccuracyHealth">
+            <summary>Reset Camera Accuracy Health</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HostPerformance">
+            <summary>Host Performance</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HdrEnabled">
+            <summary>HDR Enabled (ON = 1, OFF = 0) - for D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.SequenceName">
+            <summary>Subpreset sequence Name - for D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.SequenceSize">
+            <summary>Subpreset sequence size - for D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.SequenceId">
+            <summary>Subpreset sequence id - for D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.HumidityTemperature">
+            <summary>Humidity temperature [Deg Celsius]</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableMaxUsableRange">
+            <summary>Turn on/off the maximum usable range who calculates the maximum range of the camera given the amount of ambient light in the scene </summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.AlternateIR">
+            <summary>Turn on/off the alternate IR, When enabling alternate IR, the IR image is holding the amplitude of the depth correlation. </summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.NoiseEstimation">
+            <summary>Noise estimation on the IR image</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.EnableIrReflectivity">
+            <summary>Enables data collection for calculating IR pixel reflectivity</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.auto_exposure_limit">
+            <summary>Auto exposure limit - for D400 SKUs</summary>
+        </member>
+        <member name="F:Intel.RealSense.Option.auto_gain_limit">
+            <summary>auto gain limit - for D400 SKUs</summary>
+        </member>
+        <member name="T:Intel.RealSense.PlaybackStatus">
+            <summary>
+            State of a <see cref="T:Intel.RealSense.PlaybackDevice"/>
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.PlaybackStatus.Unknown">
+            <summary>Unknown state</summary>
+        </member>
+        <member name="F:Intel.RealSense.PlaybackStatus.Playing">
+            <summary>One or more sensors were started, playback is reading and raising data</summary>
+        </member>
+        <member name="F:Intel.RealSense.PlaybackStatus.Paused">
+            <summary>One or more sensors were started, but playback paused reading and paused raising dat</summary>
+        </member>
+        <member name="F:Intel.RealSense.PlaybackStatus.Stopped">
+            <summary>All sensors were stopped, or playback has ended (all data was read). This is the initial playback status</summary>
+        </member>
+        <member name="T:Intel.RealSense.Rs400VisualPreset">
+            <summary>
+            For RS400 devices: provides optimized settings (presets) for specific types of usage.
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Sr300VisualPreset">
+            <summary>
+            For SR300 devices: provides optimized settings (presets) for specific types of usage.
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.ShortRange">
+            <summary> Preset for short range</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.LongRange">
+            <summary> Preset for long range</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.BackgroundSegmentation">
+            <summary> Preset for background segmentation</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.GestureRecognition">
+            <summary> Preset for gesture recognition</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.ObjectScanning">
+            <summary> Preset for object scanning</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.FaceAnalytics">
+            <summary> Preset for face analytics</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.FaceLogin">
+            <summary> Preset for face login</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.GrCursor">
+            <summary> Preset for GR cursor</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.Default">
+            <summary> Camera default settings</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.MidRange">
+            <summary> Preset for mid-range</summary>
+        </member>
+        <member name="F:Intel.RealSense.Sr300VisualPreset.IrOnly">
+            <summary> Preset for IR only</summary>
+        </member>
+        <member name="T:Intel.RealSense.Stream">
+            <summary>
+            Streams are different types of data provided by RealSense devices
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Depth">
+            <summary>Native stream of depth data produced by RealSense device</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Color">
+            <summary>Native stream of color data captured by RealSense device</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Infrared">
+            <summary>Native stream of infrared data captured by RealSense device</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Fisheye">
+            <summary>Native stream of fish-eye (wide) data captured from the dedicate motion camera</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Gyro">
+            <summary>Native stream of gyroscope motion data produced by RealSense device</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Accel">
+            <summary>Native stream of accelerometer motion data produced by RealSense device</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Gpio">
+            <summary>Signals from external device connected through GPIO</summary>
+        </member>
+        <member name="F:Intel.RealSense.Stream.Pose">
+            <summary>6 Degrees of Freedom pose data, calculated by RealSense device</summary>
+        </member>
+        <member name="T:Intel.RealSense.TimestampDomain">
+            <summary>
+            Specifies the clock in relation to which the frame timestamp was measured.
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.TimestampDomain.HardwareClock">
+            <summary> Frame timestamp was measured in relation to the camera clock</summary>
+        </member>
+        <member name="F:Intel.RealSense.TimestampDomain.SystemTime">
+            <summary> Frame timestamp was measured in relation to the OS system clock</summary>
+        </member>
+        <member name="T:Intel.RealSense.Extrinsics">
+            <summary>
+            Cross-stream extrinsics: encode the topology describing how the different devices are connected.
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Extrinsics.rotation">
+            <summary>
+            Column-major 3x3 rotation matrix
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Extrinsics.translation">
+            <summary>
+            Three-element translation vector, in meters
+            </summary>
+        </member>
+        <member name="M:Intel.RealSense.InfoCollection.GetInfo(Intel.RealSense.CameraInfo)">
+            <summary>
+            retrieve camera specific information, like versions of various internal components
+            </summary>
+            <param name="info">camera info type to retrieve</param>
+            <returns>the requested camera info string, in a format specific to the device model</returns>
+        </member>
+        <member name="M:Intel.RealSense.InfoCollection.Supports(Intel.RealSense.CameraInfo)">
+            <summary>
+            check if specific camera info is supported
+            </summary>
+            <param name="info">the parameter to check for support</param>
+            <returns>true if the parameter both exist and well-defined for the specific device</returns>
+        </member>
+        <member name="P:Intel.RealSense.InfoCollection.Item(Intel.RealSense.CameraInfo)">
+            <summary>
+            retrieve camera specific information, like versions of various internal components
+            </summary>
+            <param name="info">camera info type to retrieve</param>
+            <returns>the requested camera info string, in a format specific to the device model</returns>
+        </member>
+        <member name="M:Intel.RealSense.InfoCollection.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:Intel.RealSense.InfoCollection.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:Intel.RealSense.Intrinsics">
+            <summary>
+            Video stream intrinsics
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.width">
+            <summary> Width of the image in pixels </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.height">
+            <summary> Height of the image in pixels </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.ppx">
+            <summary> Horizontal coordinate of the principal point of the image, as a pixel offset from the left edge </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.ppy">
+            <summary> Vertical coordinate of the principal point of the image, as a pixel offset from the top edge </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.fx">
+            <summary> Focal length of the image plane, as a multiple of pixel width </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.fy">
+            <summary> Focal length of the image plane, as a multiple of pixel height </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.model">
+            <summary> Distortion model of the image </summary>
+        </member>
+        <member name="F:Intel.RealSense.Intrinsics.coeffs">
+            <summary> Distortion coefficients, order: k1, k2, p1, p2, k3 </summary>
+        </member>
+        <member name="P:Intel.RealSense.Intrinsics.FOV">
+            <summary>
+            Gets the horizontal and vertical field of view, based on video intrinsics
+            </summary>
+            <value>horizontal and vertical field of view in degrees</value>
+        </member>
+        <member name="T:Intel.RealSense.Math.Quaternion">
+            <summary>
+            Quaternion used to represent rotation
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Math.TextureCoordinate">
+            <summary>
+            Pixel location within 2D image. (0,0) is the topmost, left corner. Positive X is right, positive Y is down
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Math.Vector">
+            <summary>
+            3D vector in Euclidean coordinate space
+            </summary>
+        </member>
+        <member name="T:Intel.RealSense.Math.Vertex">
+            <summary>
+            3D coordinates with origin at topmost left corner of the lense,
+            with positive Z pointing away from the camera, positive X pointing camera right and positive Y pointing camera down</summary>
+        </member>
+        <member name="T:Intel.RealSense.MotionDeviceIntrinsics">
+            <summary>
+            Motion device intrinsics: scale, bias, and variances
+            </summary>
+        </member>
+        <member name="F:Intel.RealSense.MotionDeviceIntrinsics.data">
+            <summary> Interpret data array values </summary>
+        </member>
+        <member name="F:Intel.RealSense.MotionDeviceIntrinsics.noise_variances">
+            <summary> Variance of noise for X, Y, and Z axis </summary>
+        </member>
+        <member name="F:Intel.RealSense.MotionDeviceIntrinsics.bias_variances">
+            <summary> Variance of bias for X, Y, and Z axis </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.translation">
+            <summary> X, Y, Z values of translation, in meters (relative to initial position) </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.velocity">
+            <summary> X, Y, Z values of velocity, in meter/sec </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.acceleration">
+            <summary> X, Y, Z values of acceleration, in meter/sec^2 </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.rotation">
+            <summary> Qi, Qj, Qk, Qr components of rotation as represented in quaternion rotation (relative to initial position) </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.angular_velocity">
+            <summary> X, Y, Z values of angular velocity, in radians/sec </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.angular_acceleration">
+            <summary> X, Y, Z values of angular acceleration, in radians/sec^2 </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.tracker_confidence">
+            <summary> pose data confidence 0x0 - Failed, 0x1 - Low, 0x2 - Medium, 0x3 - High </summary>
+        </member>
+        <member name="F:Intel.RealSense.Pose.mapper_confidence">
+            <summary> pose data confidence 0x0 - Failed, 0x1 - Low, 0x2 - Medium, 0x3 - High </summary>
+        </member>
+        <member name="T:Intel.RealSense.ROI">
+            <summary>
+            Region of Intrest
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageId>Intel.RealSense</PackageId>
+    <PackageId>librealsense.x64</PackageId>
     <Authors>Intel®</Authors>
     <Product>Intel® RealSense™ SDK</Product>
     <AssemblyVersion>2.45.0.0</AssemblyVersion>
@@ -15,16 +15,25 @@
     <Platforms>AnyCPU</Platforms>
     <AssemblyName>Intel.RealSense</AssemblyName>
     <RootNamespace>Intel.RealSense</RootNamespace>
+    <Copyright>Intel®</Copyright>
+    <PackageIcon>intelrealsense.png</PackageIcon>
+    <PackageIconUrl />
+    <PackageProjectUrl>https://github.com/asiryan/Intel.RealSense</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>true</Optimize>
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DocumentationFile>C:\Users\Valery\Documents\GitHub\Intel.RealSense\Intel.RealSense\Intel.RealSense.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="realsense2.dll" />
     <None Remove="realsense2.lib" />
+    <None Include="intelrealsense.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
     <None Include="LICENSE">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
