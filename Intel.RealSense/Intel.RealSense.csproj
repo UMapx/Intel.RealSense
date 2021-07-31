@@ -19,7 +19,7 @@
     <PackageIcon>intelrealsense.png</PackageIcon>
     <PackageIconUrl />
     <PackageProjectUrl>https://github.com/IntelRealSense/librealsense</PackageProjectUrl>
-    <PackageTags>intel realsense depth camera computer-vision</PackageTags>
+    <PackageTags>intel realsense depth-camera computer-vision</PackageTags>
     <RepositoryUrl>https://github.com/asiryan/Intel.RealSense</RepositoryUrl>
     <RepositoryType>open-source</RepositoryType>
   </PropertyGroup>
