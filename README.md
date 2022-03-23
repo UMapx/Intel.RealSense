@@ -1,5 +1,5 @@
 <p align="center"><img width="70%" src="Documentation/intel-logo.png" /></p>  
-<p align="center"> Intel® RealSense™ cross-platform C# wrapper </p>  
+<p align="center"> <b>Intel® RealSense™ cross-platform C# wrapper</b> </p>  
 
 ## Overview
 **Intel® RealSense™ SDK 2.0** is a cross-platform library for Intel® RealSense™ depth cameras (D400 & L500 series and the SR300) and the T265 tracking camera.
