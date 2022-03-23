@@ -21,6 +21,9 @@ We will also continue the work to support and develop our LibRealSense open sour
 
 In the coming future Intel and the RealSense team will focus our new development on advancing innovative technologies that better support our core businesses and IDM 2.0 strategy.
 
+## Installation
+You can build **librealsense.x64** from sources or [install](https://www.nuget.org/packages/librealsense.x64/) to your own project using nuget package manager.
+
 ## License
 This project is licensed under the [Apache License, Version 2.0](LICENSE).
 Copyright 2018 Intel Corporation
