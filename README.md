@@ -1,4 +1,4 @@
-<p align="center"><img width="65%" src="Documentation/intel-logo.png" /></p>  
+<p align="center"><img width="70%" src="Documentation/intel-logo.png" /></p>  
 <p align="center"> Intel® RealSense™ cross-platform C# wrapper </p>  
 
 ## Overview
