@@ -5,10 +5,10 @@
 **Intel® RealSense™ SDK 2.0** is a cross-platform library for Intel® RealSense™ depth cameras (D400 & L500 series and the SR300) and the T265 tracking camera.
 
 The SDK allows depth and color streaming, and provides intrinsic and extrinsic calibration information.
-The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for [record and playback](./doc/record-and-playback.md) of streaming sessions.
+The library also offers synthetic streams (pointcloud, depth aligned to color and vise-versa), and a built-in support for [record and playback](https://github.com/realsenseai/librealsense/blob/master/doc/record-and-playback-legacy-ros1.md) of streaming sessions.
 
-Developer kits containing the necessary hardware to use this library are available for purchase at [store.intelrealsense.com](https://store.intelrealsense.com/products.html).
-Information about the Intel® RealSense™ technology at [www.intelrealsense.com](https://www.intelrealsense.com/)
+Developer kits containing the necessary hardware to use this library are available for purchase at [store.realsenseai.com](https://store.realsenseai.com/products.html).
+Information about the Intel® RealSense™ technology at [www.realsenseai.com](https://www.realsenseai.com/)
 
 ## Special notice from Intel® RealSense™ regarding the recent press announcement
 
@@ -25,5 +25,5 @@ In the coming future Intel and the RealSense team will focus our new development
 You can build **librealsense.x64** from sources or [install](https://www.nuget.org/packages/librealsense.x64/) to your own project using nuget package manager.
 
 ## License
-This project is licensed under the [Apache License, Version 2.0](LICENSE).
+This project is licensed under the [Apache License, Version 2.0](https://github.com/UMapx/Intel.RealSense/blob/main/LICENSE).
 Copyright 2018 Intel Corporation
