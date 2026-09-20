@@ -2,37 +2,44 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<LangVersion>8.0</LangVersion>
+	<Version>2.45.2.0</Version>
+	<AssemblyVersion>2.45.2.0</AssemblyVersion>
+	<FileVersion>2.45.2.0</FileVersion>
     <PackageId>librealsense.x64</PackageId>
+	<Company>Intel®</Company>
     <Authors>Intel®</Authors>
     <Product>Intel® RealSense™ SDK</Product>
-    <AssemblyVersion>2.45.1.0</AssemblyVersion>
-    <FileVersion>2.45.1.0</FileVersion>
-    <Version>2.45.1</Version>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-    <Description>Intel® RealSense™ cross-platform C# wrapper.</Description>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-    <Platforms>AnyCPU</Platforms>
+	<Copyright>Intel®</Copyright>
+	<Description>Intel® RealSense™ cross-platform C# wrapper.</Description>
+	<PackageProjectUrl>https://github.com/UMapx/Intel.RealSense</PackageProjectUrl>
+	<RepositoryUrl>https://github.com/UMapx/Intel.RealSense</RepositoryUrl>
+	<RepositoryType>git</RepositoryType>
+	<PackageTags>intel realsense depth-camera computer-vision</PackageTags>
+	<NeutralLanguage>en</NeutralLanguage>
+	<PackageLicenseFile>LICENSE</PackageLicenseFile>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+	<PackageIcon>intelrealsense.png</PackageIcon>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyName>Intel.RealSense</AssemblyName>
     <RootNamespace>Intel.RealSense</RootNamespace>
-    <Copyright>Intel®</Copyright>
-    <PackageIcon>intelrealsense.png</PackageIcon>
-    <PackageIconUrl />
-    <PackageProjectUrl>https://github.com/IntelRealSense/librealsense</PackageProjectUrl>
-    <PackageTags>intel realsense depth-camera computer-vision</PackageTags>
-    <RepositoryUrl>https://github.com/asiryan/Intel.RealSense</RepositoryUrl>
-    <RepositoryType>open-source</RepositoryType>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <Optimize>true</Optimize>
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>C:\Users\Valery\Documents\GitHub\Intel.RealSense\Intel.RealSense\Intel.RealSense.xml</DocumentationFile>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<DefineConstants>DEBUG;TRACE</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<Optimize>true</Optimize>
+	<DebugType>none</DebugType>
+	<DebugSymbols>false</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="realsense2.dll" />
-    <None Remove="realsense2.lib" />
+	<None Include="../README.md" Pack="true" PackagePath="/" />
     <None Include="intelrealsense.png">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
@@ -44,12 +51,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="realsense2.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="realsense2.lib">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Update="realsense2.dll">
+      <Pack>true</Pack>
+      <PackagePath>runtimes/win-x64/native/</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
