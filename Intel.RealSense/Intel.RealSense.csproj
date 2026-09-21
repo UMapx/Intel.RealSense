@@ -21,7 +21,6 @@
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
 	<PackageIcon>intelrealsense.png</PackageIcon>
-	<PackageReadmeFile>README.md</PackageReadmeFile>
     <AssemblyName>Intel.RealSense</AssemblyName>
     <RootNamespace>Intel.RealSense</RootNamespace>
   </PropertyGroup>
